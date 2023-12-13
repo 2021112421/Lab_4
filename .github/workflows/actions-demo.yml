@@ -20,19 +20,4 @@ jobs:
       - name: Run tests with Maven
         run: mvn -B test --file pom.xml
 
-  auto_merge:
-    needs: run_tests
-    if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v2
-      - name: Set up Git
-        run: |
-          git config --global user.email "your-email@example.com"
-          git config --global user.name "Your Name"
-      - name: Merge changes
-        run: |
-          git checkout -B auto-merge-branch main
-          git merge --no-ff --no-edit ${{ github.sha }}
-          git push origin auto-merge-branch
+
